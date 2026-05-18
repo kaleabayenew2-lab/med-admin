@@ -259,7 +259,7 @@ export default function PromotionsPage() {
                 {promotions.map((p) => {
                   const isDbImage = p.imageUrl && (p.imageUrl.startsWith('/') || p.imageUrl.startsWith('http'));
                   const displayImage = isDbImage 
-                    ? (p.imageUrl.startsWith('/') ? `http://localhost:5000${p.imageUrl}` : p.imageUrl)
+                    ? (p.imageUrl.startsWith('/') ? `https://med-backend-0lw3.onrender.com${p.imageUrl}` : p.imageUrl)
                     : '/assets/images/logo.png'; // local fallback path on admin too
 
                   return (
@@ -474,7 +474,7 @@ export default function PromotionsPage() {
                   <img 
                     loading="lazy" 
                     decoding="async" 
-                    src={editing.imageUrl.startsWith('/') ? `http://localhost:5000${editing.imageUrl}` : editing.imageUrl} 
+                    src={editing.imageUrl.startsWith('/') ? `https://med-backend-0lw3.onrender.com${editing.imageUrl}` : editing.imageUrl} 
                     alt="promo preview" 
                     style={{ width: '100%', maxWidth: 350, height: 180, objectFit: 'cover', borderRadius: 12, border: '1px solid #ddd' }}
                     onError={(e: any) => {
