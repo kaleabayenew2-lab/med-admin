@@ -293,13 +293,46 @@ export default function HospitalBooking() {
   }
 
   return (
-    <Box sx={{ flexGrow: 1, p: 3 }}>
-      <Typography variant="h4" gutterBottom>
-        🏥 Hospital & Pharmacy Booking System
-      </Typography>
-      <Typography variant="body1" color="textSecondary" sx={{ mb: 3 }}>
-        Manage hospital and pharmacy patient bookings directly from the SQLite database in real time.
-      </Typography>
+    <Box sx={{ flexGrow: 1, p: { xs: 1.5, sm: 3 } }}>
+      <Paper sx={{ 
+        p: { xs: 2, sm: 3 }, 
+        borderRadius: 3, 
+        background: 'linear-gradient(135deg, #3b82f6 0%, #1e40af 100%)',
+        color: 'white',
+        boxShadow: '0 10px 30px rgba(59, 130, 246, 0.3)',
+        mb: { xs: 2, sm: 3 }
+      }}>
+        <Box sx={{ 
+          display: 'flex', 
+          flexDirection: { xs: 'column', md: 'row' }, 
+          alignItems: { xs: 'flex-start', md: 'center' }, 
+          justifyContent: 'space-between',
+          gap: 2
+        }}>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Avatar sx={{ 
+              bgcolor: 'rgba(255, 255, 255, 0.2)', 
+              mr: { xs: 1.5, sm: 2 },
+              width: { xs: 44, sm: 56 },
+              height: { xs: 44, sm: 56 }
+            }}>
+              <Event sx={{ fontSize: { xs: 24, sm: 32 } }} />
+            </Avatar>
+            <Box>
+              <Typography variant="h4" sx={{ 
+                fontWeight: 'bold', 
+                mb: 0.5,
+                fontSize: { xs: '1.25rem', sm: '1.75rem', md: '2.125rem' }
+              }}>
+                Hospital & Pharmacy Booking System
+              </Typography>
+              <Typography variant="body1" sx={{ opacity: 0.9, fontSize: { xs: '0.75rem', sm: '0.875rem', md: '1rem' } }}>
+                Manage hospital and pharmacy patient bookings directly from the SQLite database in real time.
+              </Typography>
+            </Box>
+          </Box>
+        </Box>
+      </Paper>
 
       <Paper sx={{ mb: 3, p: 1 }}>
         <Tabs

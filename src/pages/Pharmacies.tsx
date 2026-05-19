@@ -550,13 +550,13 @@ export default function Pharmacies() {
               } transition-all duration-200 hover:shadow-lg`}
             >
               <div className="p-4">
-                <div className="flex justify-between items-start mb-3">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-1">
-                      <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                <div className="flex flex-col sm:flex-row justify-between items-start gap-3 mb-3">
+                  <div className="flex-1 w-full">
+                    <div className="flex flex-wrap items-center gap-2 mb-1">
+                      <h3 className="text-lg font-semibold text-gray-900 dark:text-white break-words">
                         {pharmacy.name}
                       </h3>
-                      <span className={`px-2 py-1 text-xs rounded-full ${
+                      <span className={`px-2 py-1 text-xs rounded-full whitespace-nowrap ${
                         pharmacy.isActive 
                           ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' 
                           : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
@@ -564,46 +564,46 @@ export default function Pharmacies() {
                         {pharmacy.isActive ? 'Active' : 'Inactive'}
                       </span>
                     </div>
-                    <div className="flex items-center gap-4 text-sm text-gray-600 dark:text-gray-400">
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-sm text-gray-600 dark:text-gray-400">
                       {pharmacy.address && (
-                        <div className="flex items-center gap-1">
-                          <FiMapPin />
-                          <span>{pharmacy.address}</span>
+                        <div className="flex items-center gap-1 min-w-0">
+                          <FiMapPin className="flex-shrink-0" />
+                          <span className="truncate">{pharmacy.address}</span>
                         </div>
                       )}
                       {pharmacy.phone && (
-                        <div className="flex items-center gap-1">
-                          <FiPhone />
+                        <div className="flex items-center gap-1 whitespace-nowrap">
+                          <FiPhone className="flex-shrink-0" />
                           <span>{pharmacy.phone}</span>
                         </div>
                       )}
                     </div>
                   </div>
-                  <div className="flex gap-2">
+                  <div className="flex gap-2 w-full sm:w-auto justify-end mt-2 sm:mt-0">
                     <button
                       onClick={() => handleViewDetails(pharmacy)}
-                      className="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded text-sm transition-colors"
+                      className="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded text-sm transition-colors flex-1 sm:flex-none text-center"
                       title="View pharmacy details"
                     >
                       View
                     </button>
                     <button
                       onClick={() => handleEdit(pharmacy)}
-                      className="px-3 py-1 bg-green-600 hover:bg-green-700 text-white rounded text-sm transition-colors"
+                      className="px-3 py-1.5 bg-green-600 hover:bg-green-700 text-white rounded text-sm transition-colors flex-1 sm:flex-none text-center"
                       title="Edit pharmacy details"
                     >
                       Edit
                     </button>
                     <button
                       onClick={() => handleToggleActive(pharmacy)}
-                      className={`px-3 py-1 rounded text-sm transition-colors ${
+                      className={`px-3 py-1.5 rounded text-sm transition-colors flex items-center justify-center ${
                         pharmacy.isActive
                           ? 'bg-red-600 hover:bg-red-700 text-white'
                           : 'bg-green-600 hover:bg-green-700 text-white'
                       }`}
                       title={pharmacy.isActive ? "Deactivate pharmacy" : "Activate pharmacy"}
                     >
-                      {pharmacy.isActive ? <FiToggleLeft /> : <FiToggleRight />}
+                      {pharmacy.isActive ? <FiToggleLeft className="text-lg" /> : <FiToggleRight className="text-lg" />}
                     </button>
                   </div>
                 </div>

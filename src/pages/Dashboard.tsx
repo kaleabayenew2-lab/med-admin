@@ -656,37 +656,53 @@ export default function Dashboard() {
     <Box sx={{ 
       minHeight: '100vh', 
       background: 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)',
-      p: 3
+      p: { xs: 1.5, sm: 3 }
     }}>
       {/* Header */}
       <Paper sx={{ 
-        p: 3, 
+        p: { xs: 2, sm: 3 }, 
         borderRadius: 3, 
         background: 'linear-gradient(135deg, #3b82f6 0%, #1e40af 100%)',
         color: 'white',
         boxShadow: '0 10px 30px rgba(59, 130, 246, 0.3)',
-        mb: 4
+        mb: { xs: 2, sm: 4 }
       }}>
-        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <Box sx={{ 
+          display: 'flex', 
+          flexDirection: { xs: 'column', md: 'row' }, 
+          alignItems: { xs: 'flex-start', md: 'center' }, 
+          justifyContent: 'space-between',
+          gap: 2 
+        }}>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <Avatar sx={{ 
               bgcolor: 'rgba(255, 255, 255, 0.2)', 
               mr: 2,
-              width: 56,
-              height: 56
+              width: { xs: 44, sm: 56 },
+              height: { xs: 44, sm: 56 }
             }}>
               <DashboardIcon />
             </Avatar>
             <Box>
-              <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 0.5 }}>
+              <Typography variant="h4" sx={{ 
+                fontWeight: 'bold', 
+                mb: 0.5,
+                fontSize: { xs: '1.5rem', sm: '2rem', md: '2.125rem' }
+              }}>
                 Facility Management Dashboard
               </Typography>
-              <Typography variant="body1" sx={{ opacity: 0.9 }}>
+              <Typography variant="body1" sx={{ opacity: 0.9, fontSize: { xs: '0.875rem', sm: '1rem' } }}>
                 Manage healthcare facilities and services
               </Typography>
             </Box>
           </Box>
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+          <Box sx={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            gap: 2,
+            width: { xs: '100%', md: 'auto' },
+            justifyContent: { xs: 'space-between', md: 'flex-end' }
+          }}>
             <Chip 
               icon={<LocalHospital />}
               label={`${facilities.length} facilities`}

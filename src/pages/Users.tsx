@@ -306,18 +306,24 @@ export default function Users(){
     <Box sx={{ 
       minHeight: '100vh', 
       background: 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)',
-      p: 3
+      p: { xs: 1.5, sm: 3 }
     }}>
       {/* Header */}
       <Paper sx={{ 
-        p: 2, 
+        p: { xs: 1.5, sm: 2 }, 
         borderRadius: 2, 
         background: 'linear-gradient(135deg, #3b82f6 0%, #1e40af 100%)',
         color: 'white',
         boxShadow: '0 6px 20px rgba(59, 130, 246, 0.3)',
-        mb: 3
+        mb: { xs: 2, sm: 3 }
       }}>
-        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <Box sx={{ 
+          display: 'flex', 
+          flexDirection: { xs: 'column', md: 'row' }, 
+          alignItems: { xs: 'flex-start', md: 'center' }, 
+          justifyContent: 'space-between',
+          gap: 2 
+        }}>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <Avatar sx={{ 
               bgcolor: 'rgba(255, 255, 255, 0.2)', 
@@ -328,15 +334,25 @@ export default function Users(){
               <People sx={{ fontSize: 20 }} />
             </Avatar>
             <Box>
-              <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 0.25, fontSize: '1.5rem' }}>
+              <Typography variant="h5" sx={{ 
+                fontWeight: 'bold', 
+                mb: 0.25, 
+                fontSize: { xs: '1.25rem', sm: '1.5rem' } 
+              }}>
                 User Management
               </Typography>
-              <Typography variant="body2" sx={{ opacity: 0.9, fontSize: '0.875rem' }}>
+              <Typography variant="body2" sx={{ opacity: 0.9, fontSize: { xs: '0.75rem', sm: '0.875rem' } }}>
                 Manage system users, roles, and permissions
               </Typography>
             </Box>
           </Box>
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+          <Box sx={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            gap: 1.5,
+            width: { xs: '100%', md: 'auto' },
+            justifyContent: { xs: 'space-between', md: 'flex-end' }
+          }}>
             <Button
               variant="contained"
               startIcon={<Add />}

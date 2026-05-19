@@ -32,13 +32,19 @@ export default function Layout({ children, showNav = true }: { children: React.R
               }}
             >
               {showNav && <Breadcrumbs />}
-              <Container maxWidth="xl" sx={{ py: 3 }}>
+              <Container 
+                maxWidth="xl" 
+                sx={{ 
+                  py: { xs: 1.5, sm: 3 }, 
+                  px: { xs: 1, sm: 2, md: 3 } 
+                }}
+              >
                 <Paper
-                  elevation={3}
+                  elevation={0}
                   sx={{
-                    p: 3,
+                    p: { xs: 1.5, sm: 3 },
                     borderRadius: 2,
-                    bgcolor: 'background.paper',
+                    bgcolor: 'transparent',
                     minHeight: 'calc(100vh - 200px)',
                   }}
                 >
