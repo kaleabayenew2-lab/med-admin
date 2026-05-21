@@ -54,12 +54,42 @@ function getPromotionImageUrl(imageUrl: any) {
   if (!imageUrl) return '/assets/images/logo.png';
   if (typeof imageUrl !== 'string') return '/assets/images/logo.png';
   const normalized = imageUrl.trim();
-  if (normalized.startsWith('http://') || normalized.startsWith('https://')) {
-    return normalized;
-  }
   if (normalized.startsWith('assets/')) {
     return normalized;
   }
+
+  const rewriteDevHost = (urlString: string) => {
+    try {
+      const parsed = new URL(urlString);
+      const path = parsed.pathname.replace(/^\/+/, '');
+      if (path.startsWith('uploads/')) {
+        return `${BACKEND_HOST}/${path}`;
+      }
+      return `${BACKEND_HOST}/${path}`;
+    } catch {
+      return `${BACKEND_HOST}/uploads/${encodeURIComponent(urlString.replace(/^\/+/, ''))}`;
+    }
+  };
+
+  if (normalized.startsWith('http://localhost') ||
+      normalized.startsWith('http://127.0.0.1') ||
+      normalized.startsWith('http://10.0.2.2')) {
+    return rewriteDevHost(normalized);
+  }
+
+  if (normalized.startsWith('http://') || normalized.startsWith('https://')) {
+    try {
+      const parsed = new URL(normalized);
+      const path = parsed.pathname.replace(/^\/+/, '');
+      if (path.startsWith('uploads/')) {
+        return `${BACKEND_HOST}/${path}`;
+      }
+      return normalized;
+    } catch {
+      return normalized;
+    }
+  }
+
   const cleanPath = normalized.replace(/^\/+/, '');
   if (cleanPath.startsWith('uploads/')) {
     return `${BACKEND_HOST}/${cleanPath}`;
