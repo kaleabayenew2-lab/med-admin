@@ -48,6 +48,43 @@ import {
 import api from '../services/api';
 import ImageUploader from '../components/ImageUploader';
 
+const BACKEND_HOST = import.meta.env.VITE_API_BASE || 'https://med-backend-0lw3.onrender.com';
+
+function getPromotionImageUrl(imageUrl: any) {
+  if (!imageUrl) return '/assets/images/logo.png';
+  if (typeof imageUrl !== 'string') return '/assets/images/logo.png';
+  const normalized = imageUrl.trim();
+  if (normalized.startsWith('http://') || normalized.startsWith('https://')) {
+    return normalized;
+  }
+  if (normalized.startsWith('assets/')) {
+    return normalized;
+  }
+  const cleanPath = normalized.replace(/^\/+/, '');
+  if (cleanPath.startsWith('uploads/')) {
+    return `${BACKEND_HOST}/${cleanPath}`;
+  }
+  return `${BACKEND_HOST}/uploads/${encodeURIComponent(cleanPath)}`;
+}
+
+function getPromotionImageFilename(imageUrl: any) {
+  if (!imageUrl || typeof imageUrl !== 'string') return '';
+  const normalized = imageUrl.trim();
+  if (normalized.startsWith('/uploads/') || normalized.startsWith('uploads/')) {
+    return normalized.split('/').pop() || normalized;
+  }
+  if (normalized.startsWith('http://') || normalized.startsWith('https://')) {
+    try {
+      const url = new URL(normalized);
+      const pathname = url.pathname || '';
+      return pathname.split('/').pop() || normalized;
+    } catch {
+      return normalized;
+    }
+  }
+  return normalized;
+}
+
 export default function PromotionsPage() {
   const [promotions, setPromotions] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -273,10 +310,7 @@ export default function PromotionsPage() {
             ) : (
               <Grid container spacing={3}>
                 {promotions.map((p) => {
-                  const isDbImage = p.imageUrl && (p.imageUrl.startsWith('/') || p.imageUrl.startsWith('http'));
-                  const displayImage = isDbImage 
-                    ? (p.imageUrl.startsWith('/') ? `https://med-backend-0lw3.onrender.com${p.imageUrl}` : p.imageUrl)
-                    : '/assets/images/logo.png'; // local fallback path on admin too
+                  const displayImage = getPromotionImageUrl(p.imageUrl);
 
                   return (
                     <Grid item xs={12} md={6} lg={4} key={p.id}>
@@ -478,7 +512,8 @@ export default function PromotionsPage() {
                   setLoading(true);
                   try {
                     const res = await (await import('../services/uploads')).uploadFile(f as File);
-                    setEditing({...editing!, imageUrl: res.url || ''});
+                    const filename = res.filename || getPromotionImageFilename(res.url);
+                    setEditing({...editing!, imageUrl: filename});
                   } catch (e) {
                     console.error('Upload failed:', e);
                     setSnackbar({ open: true, message: 'Failed to upload background image', severity: 'error' });
@@ -490,7 +525,7 @@ export default function PromotionsPage() {
                   <img 
                     loading="lazy" 
                     decoding="async" 
-                    src={editing.imageUrl.startsWith('/') ? `https://med-backend-0lw3.onrender.com${editing.imageUrl}` : editing.imageUrl} 
+                    src={getPromotionImageUrl(editing.imageUrl)} 
                     alt="promo preview" 
                     style={{ width: '100%', maxWidth: 350, height: 180, objectFit: 'cover', borderRadius: 12, border: '1px solid #ddd' }}
                     onError={(e: any) => {
