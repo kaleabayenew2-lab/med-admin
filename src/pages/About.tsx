@@ -456,31 +456,31 @@ export default function About() {
             <Button variant="outlined" startIcon={<TimelineIcon />} href="/about">
               Release Roadmap
             </Button>
-            <Button variant="outlined" href="/contact">
-              Send Feedback
-            </Button>
-          </Box>
-        </Paper>
+<Button variant="outlined" href="/feedback">
+                  Send Feedback
+                </Button>
+              </Box>
+            </Paper>
 
-        {/* Additional Resources */}
-        <Box sx={{ display: 'flex', gap: 3, mt: 4, flexWrap: 'wrap' }}>
-          <Card sx={{ flex: 1, minWidth: 300 }}>
-            <CardContent>
-              <Typography variant="h6" sx={{ mb: 2, color: '#1e293b' }}>
-                Learn More
-              </Typography>
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-                <Button variant="text" href="/terms" sx={{ justifyContent: 'flex-start' }}>
-                  Terms & Conditions
-                </Button>
-                <Button variant="text" href="/privacy" sx={{ justifyContent: 'flex-start' }}>
-                  Privacy Policy
-                </Button>
-                <Button variant="text" href="/cookies" sx={{ justifyContent: 'flex-start' }}>
-                  Cookie Policy
-                </Button>
-                <Button variant="text" href="/contact" sx={{ justifyContent: 'flex-start' }}>
-                  Contact Support
+            {/* Additional Resources */}
+            <Box sx={{ display: 'flex', gap: 3, mt: 4, flexWrap: 'wrap' }}>
+              <Card sx={{ flex: 1, minWidth: 300 }}>
+                <CardContent>
+                  <Typography variant="h6" sx={{ mb: 2, color: '#1e293b' }}>
+                    Learn More
+                  </Typography>
+                  <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                    <Button variant="text" href="/terms" sx={{ justifyContent: 'flex-start' }}>
+                      Terms & Conditions
+                    </Button>
+                    <Button variant="text" href="/privacy" sx={{ justifyContent: 'flex-start' }}>
+                      Privacy Policy
+                    </Button>
+                    <Button variant="text" href="/cookies" sx={{ justifyContent: 'flex-start' }}>
+                      Cookie Policy
+                    </Button>
+                    <Button variant="text" href="/feedback" sx={{ justifyContent: 'flex-start' }}>
+                      Feedback
                 </Button>
               </Box>
             </CardContent>

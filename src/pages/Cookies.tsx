@@ -534,8 +534,8 @@ export default function Cookies() {
               <Button variant="text" href="/terms" sx={{ justifyContent: 'flex-start' }}>
                 Terms & Conditions
               </Button>
-              <Button variant="text" href="/contact" sx={{ justifyContent: 'flex-start' }}>
-                Contact Support
+              <Button variant="text" href="/feedback" sx={{ justifyContent: 'flex-start' }}>
+                Feedback
               </Button>
             </Box>
           </Paper>
@@ -556,14 +556,13 @@ export default function Cookies() {
           </Paper>
         </Box>
 
-        {/* Contact Section */}
         <Paper sx={{ p: 3, textAlign: 'center', bgcolor: '#f1f5f9' }}>
           <Typography variant="h6" sx={{ mb: 2, color: '#1e293b' }}>Questions About Cookies?</Typography>
           <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-            If you have questions about our Cookie Policy or how we use tracking technologies, please contact us.
+            If you have questions about our Cookie Policy or how we use tracking technologies, please review our privacy resources or send feedback.
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Email: privacy@facilitymanagement.com | Response within 48 hours
+            Visit the Feedback page for support and suggestions.
           </Typography>
         </Paper>
       </Container>

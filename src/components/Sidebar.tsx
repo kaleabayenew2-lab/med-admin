@@ -58,8 +58,7 @@ export default function Sidebar({ open, onClose, topOffset = 64 }: { open: boole
     { to: '/about', label: 'About', icon: <Info /> },
     { to: '/terms', label: 'Terms', icon: <Gavel /> },
     { to: '/help', label: 'Help', icon: <Help /> },
-    { to: '/legal', label: 'Legal & Trust', icon: <Gavel /> },
-    { to: '/contact', label: 'Contact', icon: <ContactMail /> }
+    { to: '/legal', label: 'Legal & Trust', icon: <Gavel /> }
   ];
   // exclude top-nav items so they're not duplicated in the sidebar
   const items = allItems.filter(it => !topPaths.has(it.to));

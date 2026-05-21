@@ -70,9 +70,6 @@ export default function Footer() {
               <Link href="/help" color="text.secondary" underline="hover">
                 Help Center
               </Link>
-              <Link href="/contact" color="text.secondary" underline="hover">
-                Contact Us
-              </Link>
               <Link href="/feedback" color="text.secondary" underline="hover">
                 Feedback
               </Link>

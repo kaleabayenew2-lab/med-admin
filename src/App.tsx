@@ -21,7 +21,6 @@ const Feedback = lazy(() => import('./pages/Feedback'));
 const AdminSettings = lazy(() => import('./pages/AdminSettings'));
 const AdminAll = lazy(() => import('./pages/AdminAll'));
 const About = lazy(() => import('./pages/About'));
-const ContactUs = lazy(() => import('./pages/ContactUs'));
 const LegalAndTrust = lazy(() => import('./pages/LegalAndTrust'));
 const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
 const Terms = lazy(() => import('./pages/Terms'));
@@ -119,10 +118,6 @@ export default function App() {
         <Route
           path="/about"
           element={<Layout showNav={false}><About /></Layout>}
-        />
-        <Route
-          path="/contact"
-          element={<Layout><ContactUs /></Layout>}
         />
         <Route
           path="/help"
