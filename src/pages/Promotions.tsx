@@ -48,7 +48,7 @@ import {
 import api from '../services/api';
 import ImageUploader from '../components/ImageUploader';
 
-const BACKEND_HOST = import.meta.env.VITE_API_BASE || 'https://med-backend-0lw3.onrender.com';
+const BACKEND_HOST = import.meta.env.VITE_API_BASE || '';
 
 function getPromotionImageUrl(imageUrl: any) {
   if (!imageUrl) return '/assets/images/logo.png';
