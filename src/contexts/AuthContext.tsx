@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import api from '../services/api';
 import { decryptString, encryptString } from '../utils/secureStorage';
 
 type AuthContextType = {
@@ -149,8 +150,27 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       return await completeLogin();
     }
 
-    // otherwise fail (in future call backend)
-    return { ok: false, message: 'Invalid credentials' };
+    // Attempt real backend authentication in production/staging.
+    try {
+      const res = await api.post('/api/users/login', {
+        email: email.toLowerCase(),
+        password,
+      });
+
+      if (res.data && res.data.token) {
+        const token = res.data.token;
+        const enc = await encryptString(token);
+        localStorage.setItem('authTokenEnc', enc);
+        setToken(token);
+        window.dispatchEvent(new CustomEvent('admin:toast', { detail: { type: 'success', message: 'Signed in successfully' } }));
+        return { ok: true };
+      }
+
+      return { ok: false, message: res.data?.message || 'Login failed' };
+    } catch (err: any) {
+      const message = err?.response?.data?.message || err?.message || 'Login failed';
+      return { ok: false, message };
+    }
   };
 
   const logout = () => {

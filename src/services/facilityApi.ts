@@ -162,13 +162,18 @@ export const facilityApi = {
 
 // Transform backend facility data to frontend format
 function transformBackendToFrontend(backend: any): Facility {
+  const latitude = backend.latitude !== undefined ? Number(backend.latitude) : undefined;
+  const longitude = backend.longitude !== undefined ? Number(backend.longitude) : undefined;
+  const locationCoordinates = backend.location?.coordinates || 
+    (latitude !== undefined && longitude !== undefined ? [longitude, latitude] : undefined);
+
   return {
     id: backend.id,
     name: backend.name,
     type: backend.type,
-    location: backend.location ? {
+    location: locationCoordinates ? {
       type: 'Point',
-      coordinates: backend.location.coordinates, // Already in [longitude, latitude] format
+      coordinates: locationCoordinates,
     } : undefined,
     address: backend.address,
     email: backend.email,

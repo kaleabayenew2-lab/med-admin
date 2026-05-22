@@ -1,4 +1,4 @@
-import api from './api';
+import api, { normalizeBackendUrl } from './api';
 
 function isImage(file: File) {
   return file && file.type && file.type.startsWith('image/');
@@ -61,6 +61,19 @@ export async function uploadFile(file: File) {
   const res = await api.post('/api/uploads', fd, {
     headers: { 'Content-Type': 'multipart/form-data' }
   });
+
+  if (res.data && typeof res.data === 'object') {
+    if (typeof res.data.url === 'string') {
+      res.data.url = normalizeBackendUrl(res.data.url);
+    }
+    if (typeof res.data.image === 'string') {
+      res.data.image = normalizeBackendUrl(res.data.image);
+    }
+    if (Array.isArray(res.data.urls)) {
+      res.data.urls = res.data.urls.map((item: any) => typeof item === 'string' ? normalizeBackendUrl(item) : item);
+    }
+  }
+
   return res.data;
 }
 

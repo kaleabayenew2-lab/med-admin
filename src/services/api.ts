@@ -49,4 +49,26 @@ api.interceptors.response.use(
   }
 );
 
+export function normalizeBackendUrl(url: string | null | undefined) {
+  if (!url || typeof url !== 'string') return url;
+  const trimmed = url.trim();
+  const base = API_BASE.replace(/\/+$/, '');
+
+  if (trimmed.startsWith('http://localhost') || trimmed.startsWith('http://127.0.0.1') || trimmed.startsWith('http://10.0.2.2')) {
+    try {
+      const parsed = new URL(trimmed);
+      const path = parsed.pathname.replace(/^\/+/, '');
+      return `${base}/${path}`;
+    } catch {
+      return `${base}/uploads/${encodeURIComponent(trimmed.replace(/^\/+/, ''))}`;
+    }
+  }
+
+  if (trimmed.startsWith('/uploads/') || trimmed.startsWith('uploads/')) {
+    return `${base}/${trimmed.replace(/^\/+/, '')}`;
+  }
+
+  return trimmed;
+}
+
 export default api;
