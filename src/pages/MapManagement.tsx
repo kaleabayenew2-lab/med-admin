@@ -642,7 +642,10 @@ export default function MapManagement() {
             >
               <MapContainer
                 style={{ height: '100%', width: '100%', zIndex: 1 }}
-                ref={mapRef}
+                center={[9.0054, 38.7578]}
+                zoom={12}
+                scrollWheelZoom={true}
+                whenCreated={(map) => { mapRef.current = map; }}
               >
                 <TileLayer
                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

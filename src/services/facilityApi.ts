@@ -164,8 +164,17 @@ export const facilityApi = {
 function transformBackendToFrontend(backend: any): Facility {
   const latitude = backend.latitude !== undefined ? Number(backend.latitude) : undefined;
   const longitude = backend.longitude !== undefined ? Number(backend.longitude) : undefined;
-  const locationCoordinates = backend.location?.coordinates || 
-    (latitude !== undefined && longitude !== undefined ? [longitude, latitude] : undefined);
+  let locationObject = backend.location;
+  if (typeof locationObject === 'string') {
+    try {
+      locationObject = JSON.parse(locationObject);
+    } catch (e) {
+      locationObject = undefined;
+    }
+  }
+  const locationCoordinates = locationObject?.coordinates && Array.isArray(locationObject.coordinates) && locationObject.coordinates.length >= 2
+    ? locationObject.coordinates
+    : (latitude !== undefined && longitude !== undefined ? [longitude, latitude] : undefined);
 
   return {
     id: backend.id,
