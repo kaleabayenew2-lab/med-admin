@@ -11,6 +11,7 @@ import { ToastProvider } from './contexts/ToastContext';
 import { ConfirmProvider } from './contexts/ConfirmContext';
 import './index.css';
 import { io, Socket } from 'socket.io-client';
+import { API_BASE } from './config/backend';
 
 // Function to safely toggle dark mode
 function applyDarkMode(isDark: boolean) {
@@ -24,7 +25,7 @@ function applyDarkMode(isDark: boolean) {
 // Initialize socket connection
 function initSocket() {
   try {
-    const socket: Socket = io(import.meta.env.VITE_API_BASE, { query: { admin: '1' } });
+    const socket: Socket = io(API_BASE, { query: { admin: '1' } });
     socket.on('connect', () => {
       try { socket.emit('register', { role: 'admin' }); } catch {}
     });
@@ -42,7 +43,7 @@ async function initAndRender() {
   initSocket();
 
   try {
-    const res = await fetch(`${import.meta.env.VITE_API_BASE}/api/admin/settings`);
+  const res = await fetch(`${API_BASE}/api/admin/settings`);
     if (res.ok) {
       const data = await res.json();
       if (data?.darkMode !== undefined) applyDarkMode(!!data.darkMode);

@@ -1,7 +1,9 @@
 import axios from 'axios';
 import { decryptString } from '../utils/secureStorage';
 
-export const API_BASE = import.meta.env.VITE_API_BASE || '';
+import { API_BASE } from '../config/backend';
+
+export { API_BASE };
 const WITH_CREDENTIALS = (import.meta.env.VITE_API_WITH_CREDENTIALS || 'false').toLowerCase() === 'true';
 
 export const api = axios.create({

@@ -46,9 +46,10 @@ import {
   Info
 } from '@mui/icons-material';
 import api from '../services/api';
+import { API_BASE } from '@/config/backend';
 import ImageUploader from '../components/ImageUploader';
 
-const BACKEND_HOST = import.meta.env.VITE_API_BASE || '';
+const BACKEND_HOST = API_BASE;
 
 function getPromotionImageUrl(imageUrl: any) {
   if (!imageUrl) return '/assets/images/logo.png';

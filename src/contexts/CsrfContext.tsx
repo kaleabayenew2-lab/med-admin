@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import { API_BASE } from '@/config/backend';
 import api from '../services/api';
 
 type CsrfContextType = { token: string | null; loading: boolean };
@@ -14,7 +15,7 @@ export const CsrfProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const fetchToken = async () => {
       try {
         // Try API endpoint first
-        const res = await fetch((import.meta.env.VITE_API_BASE || '') + '/api/csrf-token', { method: 'GET', credentials: 'include' });
+        const res = await fetch(API_BASE + '/api/csrf-token', { method: 'GET', credentials: 'include' });
         if (res && res.ok) {
           const json = await res.json();
           if (mounted && json && json.csrfToken) {

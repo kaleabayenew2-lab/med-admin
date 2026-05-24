@@ -50,7 +50,7 @@ export interface FacilityApiResponse {
   count: number;
 }
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE || '';
+import { API_BASE as API_BASE_URL } from '@/config/backend';
 
 export const facilityApi = {
   // Get all facilities

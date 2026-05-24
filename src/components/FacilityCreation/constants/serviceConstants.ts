@@ -21,7 +21,7 @@ export const PHARMACY_SERVICE_MAP: Record<string, string[]> = {
 export const HOSPITAL_TYPES = Object.keys(HOSPITAL_SERVICE_MAP);
 export const PHARMACY_TYPES = Object.keys(PHARMACY_SERVICE_MAP);
 
-export const API_BASE_URL = import.meta.env.VITE_API_BASE || '';
+export { API_BASE as API_BASE_URL } from '@/config/backend';
 
 export const VALIDATION_RULES = {
   NAME_MIN_LENGTH: 3,
