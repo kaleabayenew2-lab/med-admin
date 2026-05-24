@@ -26,7 +26,8 @@ import {
   Select,
   MenuItem,
   Tab,
-  Tabs
+  Tabs,
+  Avatar
 } from '@mui/material';
 import {
   Search,

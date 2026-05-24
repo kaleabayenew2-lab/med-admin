@@ -55,6 +55,17 @@ export default function Hospitals() {
   });
   const navigate = useNavigate();
 
+  const parseJSONField = (value: any) => {
+    if (typeof value === 'string') {
+      try {
+        return JSON.parse(value);
+      } catch {
+        return value;
+      }
+    }
+    return value;
+  };
+
   useEffect(() => {
     // Apply blur effect when page loads
     setIsBlurred(true);
@@ -80,8 +91,8 @@ export default function Hospitals() {
           _id: facility._id || facility.id || undefined,
           isActive: facility.isActive === 1 || facility.isActive === true,
           emergency: facility.emergency === 1 || facility.emergency === true,
-          location: typeof facility.location === 'string' ? JSON.parse(facility.location) : facility.location,
-          services: typeof facility.services === 'string' ? JSON.parse(facility.services) : facility.services
+          location: parseJSONField(facility.location),
+          services: parseJSONField(facility.services)
         }));
         
         const hospitals = mappedFacilities.filter((f: any) => f.type === 'hospital');
@@ -147,8 +158,8 @@ export default function Hospitals() {
       _id: hospital._id || hospital.id || undefined,
       isActive: hospital.isActive,
       emergency: false, // Default value since Hospital type doesn't have this field
-      location: typeof hospital.location === 'string' ? JSON.parse(hospital.location) : hospital.location,
-      services: typeof hospital.services === 'string' ? JSON.parse(hospital.services) : hospital.services
+      location: parseJSONField(hospital.location),
+      services: parseJSONField(hospital.services)
     };
     setSelectedFacility(facility);
     setShowFacilityDialog(true);
@@ -164,8 +175,8 @@ export default function Hospitals() {
       _id: hospital._id || hospital.id || undefined,
       isActive: hospital.isActive,
       emergency: false, // Default value since Hospital type doesn't have this field
-      location: typeof hospital.location === 'string' ? JSON.parse(hospital.location) : hospital.location,
-      services: typeof hospital.services === 'string' ? JSON.parse(hospital.services) : hospital.services
+      location: parseJSONField(hospital.location),
+      services: parseJSONField(hospital.services)
     };
     setSelectedFacility(facility);
     setIsEditMode(true);

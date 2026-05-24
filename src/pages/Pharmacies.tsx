@@ -55,6 +55,17 @@ export default function Pharmacies() {
   });
   const navigate = useNavigate();
 
+  const parseJSONField = (value: any) => {
+    if (typeof value === 'string') {
+      try {
+        return JSON.parse(value);
+      } catch {
+        return value;
+      }
+    }
+    return value;
+  };
+
   useEffect(() => {
     // Apply blur effect when page loads
     setIsBlurred(true);
@@ -80,8 +91,8 @@ export default function Pharmacies() {
           _id: facility._id || facility.id || undefined,
           isActive: facility.isActive === 1 || facility.isActive === true,
           emergency: facility.emergency === 1 || facility.emergency === true,
-          location: typeof facility.location === 'string' ? JSON.parse(facility.location) : facility.location,
-          services: typeof facility.services === 'string' ? JSON.parse(facility.services) : facility.services
+          location: parseJSONField(facility.location),
+          services: parseJSONField(facility.services)
         }));
         
         const pharmacies = mappedFacilities.filter((f: any) => f.type === 'pharmacy');
@@ -147,8 +158,8 @@ export default function Pharmacies() {
       _id: pharmacy._id || pharmacy.id || undefined,
       isActive: pharmacy.isActive,
       emergency: false, // Default value since Pharmacy type doesn't have this field
-      location: typeof pharmacy.location === 'string' ? JSON.parse(pharmacy.location) : pharmacy.location,
-      services: typeof pharmacy.services === 'string' ? JSON.parse(pharmacy.services) : pharmacy.services
+      location: parseJSONField(pharmacy.location),
+      services: parseJSONField(pharmacy.services)
     };
     setSelectedFacility(facility);
     setShowFacilityDialog(true);
@@ -164,8 +175,8 @@ export default function Pharmacies() {
       _id: pharmacy._id || pharmacy.id || undefined,
       isActive: pharmacy.isActive,
       emergency: false, // Default value since Pharmacy type doesn't have this field
-      location: typeof pharmacy.location === 'string' ? JSON.parse(pharmacy.location) : pharmacy.location,
-      services: typeof pharmacy.services === 'string' ? JSON.parse(pharmacy.services) : pharmacy.services
+      location: parseJSONField(pharmacy.location),
+      services: parseJSONField(pharmacy.services)
     };
     setSelectedFacility(facility);
     setIsEditMode(true);
@@ -427,8 +438,8 @@ export default function Pharmacies() {
                   _id: facility._id || facility.id || undefined,
                   isActive: facility.isActive === 1 || facility.isActive === true,
                   emergency: facility.emergency === 1 || facility.emergency === true,
-                  location: typeof facility.location === 'string' ? JSON.parse(facility.location) : facility.location,
-                  services: typeof facility.services === 'string' ? JSON.parse(facility.services) : facility.services
+                  location: parseJSONField(facility.location),
+                  services: parseJSONField(facility.services)
                 }));
                 setItems(mappedFacilities.filter((f: any) => f.type === 'pharmacy'));
               })

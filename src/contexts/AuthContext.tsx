@@ -141,16 +141,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       return { ok: true };
     };
 
-    if (email === DEMO_EMAIL && password === DEMO_PASSWORD) {
-      return await completeLogin();
-    }
-
-    if (import.meta.env.DEV) {
-      // In development/demo mode, allow any valid credentials so the admin portal opens.
-      return await completeLogin();
-    }
-
-    // Attempt real backend authentication in production/staging.
+    // Attempt real backend authentication.
     try {
       const res = await api.post('/api/users/login', {
         email: email.toLowerCase(),
@@ -183,7 +174,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     navigate('/login');
   };
 
-  const value = useMemo(() => ({ isAuthenticated: !!token, token, isLoading, login, logout }), [token, isLoading]);
+  useEffect(() => {
+    const handleUnauthorized = () => {
+      logout();
+    };
+
+    window.addEventListener('admin:auth-unauthorized', handleUnauthorized);
+    return () => {
+      window.removeEventListener('admin:auth-unauthorized', handleUnauthorized);
+    };
+  }, [logout]);
+
+  const value = useMemo(() => ({ isAuthenticated: !!token, token, isLoading, login, logout }), [token, isLoading, login, logout]);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

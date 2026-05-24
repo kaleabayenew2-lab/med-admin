@@ -42,6 +42,15 @@ api.interceptors.response.use(
   },
   (error) => {
     try { window.dispatchEvent(new CustomEvent('admin:api-response')); } catch (e) {}
+
+    if (error?.response?.status === 401) {
+      try {
+        localStorage.removeItem('authTokenEnc');
+        localStorage.removeItem('authToken');
+      } catch (e) {}
+      try { window.dispatchEvent(new CustomEvent('admin:auth-unauthorized')); } catch (e) {}
+    }
+
     // show error toast
     try {
       const msg = error?.response?.data?.message || error?.message || 'Request failed';
